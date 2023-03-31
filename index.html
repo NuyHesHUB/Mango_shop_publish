@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="header-area">
+            <img src="./images/icons/logo.png" alt="logo" />
+        </div>
+    </div>
+    <div id="body">
+        <div id="banner">
+            <img src="./images/banners/banner1.png" alt="mainImg" />
+        </div>
+        <h1>Products</h1>
+        <div id="product-list"></div>
+    </div>
+    <div id="footer">
+        <a href="#">회사소개</a>
+        <a href="#">이용약관</a>
+        <a href="#">통신판매업:123-1234</a>
+        <a href="#">사업자등록번호:456-78-123456</a>
+    </div>
+    <script>
+        /* let products = [
+            {
+                name:"습식사료",
+                price: 5000,
+                seller:"내추럴코어",
+                imageUrl:"images/products/food1.jpg"
+            },
+            {
+                name:"하네스",
+                price: 30000,
+                seller:"도기멍",
+                imageUrl:"images/products/food2.jpg"
+            },
+            {
+                name:"배변패드",
+                price: 25000,
+                seller:"흡수혁명",
+                imageUrl:"images/products/food3.jpg"
+            }
+        ]; */
+
+        axios.get('https://30fee64e-3a4a-4cb2-815b-746a1a61d93f.mock.pstmn.io/products')
+        .then(function(result){
+            const products=result.data.products;
+            console.log(products);
+            let productHtml='';
+            for(let i=0; i<products.length; i++){
+                    let product=products[i];
+                    productHtml=`${productHtml}
+                    <div class="product-card">
+                        <div><img class="product-img" src=${product.imageUrl} alt=${product.name}/></div>
+                        <div class="product-contents">
+                            <span class="product-name">${product.name}</span>
+                            <span class="product-price">${product.price}</span>
+                            <span class="product-seller">
+                                <img src="./images/icons/avatar.png" alt="avatar" class="product-avatar"/>
+                                <span>${product.seller}</span>
+                            </span>
+                        </div>
+                    </div>
+                    `;
+                }
+        document.querySelector('#product-list').innerHTML=productHtml;
+        }).catch(function(error){
+            console.error("error발생",error);
+        })
+
+        
+
+        //axios.get(url주소)
+        //axios.post(url주소, data 객체)
+        //axios.get(url주소).then(function(result){console.log(result);}).catch(function(error){console.log(error);});
+
+        /* const url='https://30fee64e-3a4a-4cb2-815b-746a1a61d93f.mock.pstmn.io/products';
+        axios.get(url).then(function(result){
+            const status=result.status;
+            const data=result.data
+            console.log(data);
+        }).catch(function(error){
+            console.log(error);
+        }) */
+    </script>
+</body>
+</html>
